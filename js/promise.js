@@ -23,7 +23,7 @@ function failureCallback(error) {
 // timing   
 Promise.resolve().then(() => console.log(2));
 console.log(1);
-
+// +++++++++++++++++++++++++++++++++++
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve,ms));
 wait(0).then(() => console.log(4));
 Promise.resolve()
