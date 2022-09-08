@@ -1,5 +1,5 @@
-Basic of Javascript
-Type Conversions
+# Basic of Javascript
+## Type Conversions
 
 "" + 1 + 0 = "10" // (1)
 "" - 1 + 0 = -1 // (2)
