@@ -1,6 +1,6 @@
 # Basic of Javascript
 ## Type Conversions
-
+```
 "" + 1 + 0 = "10" // (1)
 "" - 1 + 0 = -1 // (2)
 true + false = 1
@@ -15,17 +15,22 @@ true + false = 1
 null + 1 = 1 // (5)
 undefined + 1 = NaN // (6)
 " \t \n" - 2 = -2 // (7)
+```
 
-    1.The addition with a string "" + 1 converts 1 to a string: "" + 1 = "1", and then we have "1" + 0, the same rule is applied.
-    2.The subtraction - (like most math operations) only works with numbers, it converts an empty string "" to 0.
-    3.The addition with a string appends the number 5 to the string.
-    4.The subtraction always converts to numbers, so it makes " -9 " a number -9 (ignoring spaces around it).
-    5.null becomes 0 after the numeric conversion.
-    6.undefined becomes NaN after the numeric conversion.
-    7.Space characters, are trimmed off string start and end when a string is converted to a number. Here the whole string consists of space characters, such as \t, \n and a “regular” space between them. So, similarly to an empty string, it becomes 0.
+* 1.The addition with a string "" + 1 converts 1 to a string: "" + 1 = "1", 
+    and then we have "1" + 0, the same rule is applied.
+* 2.The subtraction - (like most math operations) only works with numbers, 
+    it converts an empty string "" to 0.
+* 3.The addition with a string appends the number 5 to the string.
+* 4.The subtraction always converts to numbers, so it makes " -9 " a number -9 (ignoring spaces around it).
+* 5.null becomes 0 after the numeric conversion.
+* 6.undefined becomes NaN after the numeric conversion.
+* 7.Space characters, are trimmed off string start and end when a string is converted to a number. 
+    Here the whole string consists of space characters, such as \t, \n and a “regular” space between them. 
+    So, similarly to an empty string, it becomes 0.
 
-Comparisons
-Strange result: null vs 0
+## Comparisons
+ ### Strange result: null vs 0
 
     Let’s compare null with a zero:
 
@@ -39,13 +44,13 @@ alert( null >= 0 ); // (3) true
 
     On the other hand, the equality check == for undefined and null is defined such that, without any conversions, they equal each other and don’t equal anything else. That’s why (2) null == 0 is false.
 
-Conditional branching: if, '?'
+### Conditional branching: if, '?'
 
     Sometimes, we need to perform different actions based on different conditions.
 
     To do that, we can use the if statement and the conditional operator ?, that’s also called a “question mark” operator.
 
-Multiple '?'
+### Multiple '?'
 
 A sequence of question mark operators ? can return a value that depends on more than one condition.
 
@@ -79,8 +84,8 @@ if (age < 3) {
   message = 'What an unusual age!';
 }
 
-Logical Operators
-OR "||" finds the first truthy value [#or-finds-the-first-truthy-value]
+## Logical Operators
+### OR "||" finds the first truthy value [#or-finds-the-first-truthy-value]
 
 The logic described above is somewhat classical. Now, let's bring in the "extra" features of JavaScript.
 
@@ -127,7 +132,7 @@ This leads to some interesting usage compared to a "pure, classical, boolean-onl
 
     If all variables were falsy, "Anonymous" would show up.
 
-    Short-circuit evaluation.
+    **Short-circuit evaluation.**
 
     Another feature of OR || operator is the so-called "short-circuit" evaluation.
 
@@ -144,7 +149,7 @@ This leads to some interesting usage compared to a "pure, classical, boolean-onl
 
     Sometimes, people use this feature to execute commands only if the condition on the left part is falsy.
 
-AND "&&" finds the first falsy value
+### AND "&&" finds the first falsy value
 
 Given multiple AND'ed values:
 
