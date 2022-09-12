@@ -187,8 +187,6 @@ That's also better for readability, as it's easier to look up `function f(…) {
 ...But if a Function Declaration does not suit us for some reason, or we need a conditional declaration (we've just seen an example), then Function Expression should be used.
 ```
 
-## Summary
-
 - Functions are values. They can be assigned, copied or declared in any place of the code.
 - If the function is declared as a separate statement in the main code flow, that's called a "Function Declaration".
 - If the function is created as a part of an expression, it's called a "Function Expression".
@@ -198,3 +196,32 @@ That's also better for readability, as it's easier to look up `function f(…) {
 In most cases when we need to declare a function, a Function Declaration is preferable, because it is visible prior to the declaration itself. That gives us more flexibility in code organization, and is usually more readable.
 
 So we should use a Function Expression only when a Function Declaration is not fit for the task. We've seen a couple of examples of that in this chapter, and will see more in the future.
+
+
+## 2. Code Quality
+
+Here is a cheat sheet with some suggested rules (see below for more details):
+
+![](https://raw.githubusercontent.com/javascript-tutorial/en.javascript.info/master/1-js/03-code-quality/02-coding-style/code-style.svg)
+<!--
+```js
+function pow(x, n) {
+  let result = 1;
+
+  for (let i = 0; i < n; i++) {
+    result *= x;
+  }
+
+  return result;
+}
+
+let x = prompt("x?", "");
+let n = prompt("n?", "");
+
+if (n < 0) {
+  alert(`Power ${n} is not supported,
+    please enter a non-negative integer number`);
+} else {
+  alert( pow(x, n) );
+}
+```
