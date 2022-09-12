@@ -225,3 +225,6 @@ if (n < 0) {
   alert( pow(x, n) );
 }
 ```
+
+## 3. Garbage Collection
+* [read me](https://javascript.info/garbage-collection)
