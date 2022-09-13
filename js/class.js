@@ -4,7 +4,7 @@ if (bigday.getTime() < Date.now() ) {
     console.log("Once upon a time")
     
 }
-// ygdc
+
 function myClass() {
     this.myField = "foo";   
 }
