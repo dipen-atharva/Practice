@@ -203,7 +203,7 @@ So we should use a Function Expression only when a Function Declaration is not f
 Here is a cheat sheet with some suggested rules (see below for more details):
 
 ![](https://raw.githubusercontent.com/javascript-tutorial/en.javascript.info/master/1-js/03-code-quality/02-coding-style/code-style.svg)
-<!--
+
 ```js
 function pow(x, n) {
   let result = 1;
@@ -225,3 +225,6 @@ if (n < 0) {
   alert( pow(x, n) );
 }
 ```
+
+## 3. Garbage Collection
+* [read me](https://javascript.info/garbage-collection)
