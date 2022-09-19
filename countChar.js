@@ -1,20 +1,25 @@
 function duplicateCount(str) {
 
 	if(str.length > 0 ) {
-		var obj = {};
-		// var arr = [];
+
+		var final = "";
+
 		for(let i = 0; i < str.length; i++) {
-			if(obj[str[i]]){
-				obj[str[i]]++;
-			}else {
-				obj[str[i]] = 1;
+			var count = 1 ;
+
+			while (i+1 < str.length && str.charAt(i) == str.charAt(i + 1)) {
+				i++;
+				count++;
+			}
+			if ( count == 1 ) {
+				final += str.charAt(i) ;
+			} else {
+				final += str.charAt(i) + count ;
 			}
 		}
-		// console.log(obj);	
-        let result = JSON.stringify(obj).replace(/['":,{}1]+/g,"");
-        console.log(result);
-	}
-			
+	console.log(final);
+	}		
 }
-duplicateCount("AABCDCSDSESAAA");
+
+duplicateCount("AAABCCCFDAA");
 
