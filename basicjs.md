@@ -340,3 +340,27 @@ Iteration over `Map` and `Set` is always in the insertion order, so we can't say
 
 `WeakMap` and `WeakSet` are used as "secondary" data structures in addition to the "primary" object storage. Once the object is removed from the primary storage, if it is only found as the key of `WeakMap` or in a `WeakSet`, it will be cleaned up automatically.
 
+### 5. Destructuring
+
+
+- Destructuring assignment allows for instantly mapping an object or array onto many variables.
+- The full object syntax:
+    ```js
+    let {prop : varName = default, ...rest} = object
+    ```
+
+    This means that property `prop` should go into the variable `varName` and, if no such property exists, then the `default` value should be used.
+
+    Object properties that have no mapping are copied to the `rest` object.
+
+- The full array syntax:
+
+    ```js
+    let [item1 = default, item2, ...rest] = array
+    ```
+
+    The first item goes to `item1`; the second goes into `item2`, all the rest makes the array `rest`.
+
+- It's possible to extract data from nested arrays/objects, for that the left side must have the same structure as the right one.
+
+- [For Detail Reading](https://javascript.info/destructuring-assignment)
