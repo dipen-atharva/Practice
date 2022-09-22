@@ -22,3 +22,5 @@ for (let i = 0; i < Object.keys(output).length; i++) {
   }
 }
 console.log(`{${result}}`);
+
+// {1 => classA,2 => classA,3 => classA,4 => classA,4 => classB,5 => classB,6 => classB,7 => classB}
