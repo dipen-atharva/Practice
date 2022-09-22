@@ -364,3 +364,73 @@ Iteration over `Map` and `Set` is always in the insertion order, so we can't say
 - It's possible to extract data from nested arrays/objects, for that the left side must have the same structure as the right one.
 
 - [For Detail Reading](https://javascript.info/destructuring-assignment)
+
+### 5. JSON Methods
+
+- JSON is a data format that has its own independent standard and libraries for most programming languages.
+- JSON supports plain objects, arrays, strings, numbers, booleans, and `null`.
+- JavaScript provides methods JSON.stringify to serialize into JSON and JSON.parse to read from JSON.
+- Both methods support transformer functions for smart reading/writing.
+- If an object has `toJSON`, then it is called by `JSON.stringify`.
+
+#### - *Using reviver*
+Imagine, we got a stringified `meetup` object from the server.
+
+It looks like this:
+
+```js
+// title: (meetup title), date: (meetup date)
+let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
+```
+
+...And now we need to *deserialize* it, to turn back into JavaScript object.
+
+Let's do it by calling `JSON.parse`:
+
+```js run
+let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
+
+let meetup = JSON.parse(str);
+
+*!*
+alert( meetup.date.getDate() ); // Error!
+*/!*
+```
+
+Whoops! An error!
+
+The value of `meetup.date` is a string, not a `Date` object. How could `JSON.parse` know that it should transform that string into a `Date`?
+
+Let's pass to `JSON.parse` the reviving function as the second argument, that returns all values "as is", but `date` will become a `Date`:
+
+```js run
+let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
+
+*!*
+let meetup = JSON.parse(str, function(key, value) {
+  if (key == 'date') return new Date(value);
+  return value;
+});
+*/!*
+
+alert( meetup.date.getDate() ); // now works!
+
+By the way, that works for nested objects as well:
+
+```js run
+let schedule = `{
+  "meetups": [
+    {"title":"Conference","date":"2017-11-30T12:00:00.000Z"},
+    {"title":"Birthday","date":"2017-04-18T12:00:00.000Z"}
+  ]
+}`;
+
+schedule = JSON.parse(schedule, function(key, value) {
+  if (key == 'date') return new Date(value);
+  return value;
+});
+
+*!*
+alert( schedule.meetups[1].date.getDate() ); // works!
+*/!*
+```
