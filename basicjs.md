@@ -434,3 +434,31 @@ schedule = JSON.parse(schedule, function(key, value) {
 alert( schedule.meetups[1].date.getDate() ); // works!
 */!*
 ```
+### 6. Rest/Spread Operator
+
+When we see `"..."` in the code, it is either rest parameters or the spread syntax.
+
+There's an easy way to distinguish between them:
+
+- When `...` is at the end of function parameters, it's "rest parameters" and gathers the rest of the list of arguments into an array.
+- When `...` occurs in a function call or alike, it's called a "spread syntax" and expands an array into a list.
+
+Use patterns:
+
+- Rest parameters are used to create functions that accept any number of arguments.
+- The spread syntax is used to pass an array to functions that normally require a list of many arguments.
+
+Together they help to travel between a list and an array of parameters with ease.
+
+All arguments of a function call are also available in "old-style" `arguments`: array-like iterable object.
+
+### 7. The 'old' var
+
+There are two main differences of `var` compared to `let/const`:
+
+1. `var` variables have no block scope, their visibility is scoped to current function, or global, if declared outside function.
+2. `var` declarations are processed at function start (script start for globals).
+
+There's one more very minor difference related to the global object, that we'll cover in the next chapter.
+
+These differences make `var` worse than `let` most of the time. Block-level variables is such a great thing. That's why `let` was introduced in the standard long ago, and is now a major way (along with `const`) to declare a variable.
