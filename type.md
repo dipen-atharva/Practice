@@ -31,18 +31,17 @@ undefined + 1 = NaN // (6)
 
 ## Comparisons
  ### Strange result: null vs 0
-
-    * Let’s compare null with a zero:
+* Let’s compare null with a zero:
 ```
 alert( null > 0 );  // (1) false
 alert( null == 0 ); // (2) false
 alert( null >= 0 ); // (3) true
 ```
-    * Mathematically, that’s strange. The last result states that "null is greater than or equal to zero", so in one of the comparisons above it must be true, but they are both false.
+* Mathematically, that’s strange. The last result states that "null is greater than or equal to zero", so in one of the comparisons above it must be true, but they are both false.
 
-    The reason is that an equality check == and comparisons > < >= <= work differently. Comparisons convert null to a number, treating it as 0. That’s why (3) null >= 0 is true and (1) null > 0 is false.
+The reason is that an equality check == and comparisons > < >= <= work differently. Comparisons convert null to a number, treating it as 0. That’s why (3) null >= 0 is true and (1) null > 0 is false.
 
-    On the other hand, the equality check == for undefined and null is defined such that, without any conversions, they equal each other and don’t equal anything else. That’s why (2) null == 0 is false.
+ On the other hand, the equality check == for undefined and null is defined such that, without any conversions, they equal each other and don’t equal anything else. That’s why (2) null == 0 is false.
 
 ### Conditional branching: if, '?'
 
@@ -116,38 +115,36 @@ alert( undefined || null || 0 ); // 0 (all falsy, returns the last value)
 
 This leads to some interesting usage compared to a "pure, classical, boolean-only OR".
 
-    Getting the first truthy value from a list of variables or expressions.
+Getting the first truthy value from a list of variables or expressions.
 
-    For instance, we have firstName, lastName and nickName variables, all optional (i.e. can be undefined or have falsy values).
+ For instance, we have firstName, lastName and nickName variables, all optional (i.e. can be undefined or have falsy values).
 
-    Let's use OR || to choose the one that has the data and show it (or "Anonymous" if nothing set):
+ Let's use OR || to choose the one that has the data and show it (or "Anonymous" if nothing set):
 
-    let firstName = "";
-    let lastName = "";
-    let nickName = "SuperCoder";
+ let firstName = "";
+ let lastName = "";
+ let nickName = "SuperCoder";
 
-    *!*
-    alert( firstName || lastName || nickName || "Anonymous"); // SuperCoder
-    */!*
+*!*
+  alert( firstName || lastName || nickName || "Anonymous"); // SuperCoder
+*/!*
 
-    If all variables were falsy, "Anonymous" would show up.
+If all variables were falsy, "Anonymous" would show up.
 
-    **Short-circuit evaluation.**
+**Short-circuit evaluation.**
 
-    Another feature of OR || operator is the so-called "short-circuit" evaluation.
+Another feature of OR || operator is the so-called "short-circuit" evaluation.
+It means that || processes its arguments until the first truthy value is reached, and then the value is returned immediately, without even touching the other argument.
 
-    It means that || processes its arguments until the first truthy value is reached, and then the value is returned immediately, without even touching the other argument.
+The importance of this feature becomes obvious if an operand isn't just a value, but an expression with a side effect, such as a variable assignment or a function call.
 
-    The importance of this feature becomes obvious if an operand isn't just a value, but an expression with a side effect, such as a variable assignment or a function call.
-
-    In the example below, only the second message is printed:
+In the example below, only the second message is printed:
 
     *!*true*/!* || alert("not printed");
     *!*false*/!* || alert("printed");
+In the first line, the OR || operator stops the evaluation immediately upon seeing true, so the alert isn't run.
 
-    In the first line, the OR || operator stops the evaluation immediately upon seeing true, so the alert isn't run.
-
-    Sometimes, people use this feature to execute commands only if the condition on the left part is falsy.
+Sometimes, people use this feature to execute commands only if the condition on the left part is falsy.
 
 ### AND "&&" finds the first falsy value
 
