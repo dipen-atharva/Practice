@@ -321,3 +321,164 @@ for (let key in user) {
 
 Another difference is that `for..in` ignores symbolic and non-enumerable properties, but `Object.getOwnPropertyDescriptors` returns *all* property descriptors including symbolic and non-enumerable ones.
 
+# Prototypal inheritance
+
+In programming, we often want to take something and extend it.
+
+For instance, we have a `user` object with its properties and methods, and want to make `admin` and `guest` as slightly modified variants of it. We'd like to reuse what we have in `user`, not copy/reimplement its methods, just build a new object on top of it.
+
+*Prototypal inheritance* is a language feature that helps in that.
+
+## [[Prototype]]
+
+In JavaScript, objects have a special hidden property `[[Prototype]]` (as named in the specification), that is either `null` or references another object. That object is called "a prototype":
+
+The property `[[Prototype]]` is internal and hidden, but there are many ways to set it.
+
+One of them is to use the special name `__proto__`, like this:
+
+```js run
+let animal = {
+  eats: true
+};
+let rabbit = {
+  jumps: true
+};
+
+*!*
+rabbit.__proto__ = animal; // sets rabbit.[[Prototype]] = animal
+*/!*
+```
+So if `animal` has a lot of useful properties and methods, then they become automatically available in `rabbit`. Such properties are called "inherited".
+
+If we have a method in `animal`, it can be called on `rabbit`:
+
+```js run
+let animal = {
+  eats: true,
+*!*
+  walk() {
+    alert("Animal walk");
+  }
+*/!*
+};
+
+let rabbit = {
+  jumps: true,
+  __proto__: animal
+};
+
+// walk is taken from the prototype
+*!*
+rabbit.walk(); // Animal walk
+*/!*
+```
+
+The method is automatically taken from the prototype, like this:
+
+The prototype chain can be longer:
+
+```js run
+let animal = {
+  eats: true,
+  walk() {
+    alert("Animal walk");
+  }
+};
+
+let rabbit = {
+  jumps: true,
+*!*
+  __proto__: animal
+*/!*
+};
+
+let longEar = {
+  earLength: 10,
+*!*
+  __proto__: rabbit
+*/!*
+};
+
+// walk is taken from the prototype chain
+longEar.walk(); // Animal walk
+alert(longEar.jumps); // true (from rabbit)
+```
+
+
+## Writing doesn't use prototype
+
+The prototype is only used for reading properties.
+
+Write/delete operations work directly with the object.
+
+In the example below, we assign its own `walk` method to `rabbit`:
+
+```js run
+let animal = {
+  eats: true,
+  walk() {
+    /* this method won't be used by rabbit */  
+  }
+};
+
+let rabbit = {
+  __proto__: animal
+};
+
+*!*
+rabbit.walk = function() {
+  alert("Rabbit! Bounce-bounce!");
+};
+*/!*
+
+rabbit.walk(); // Rabbit! Bounce-bounce!
+```
+
+From now on, `rabbit.walk()` call finds the method immediately in the object and executes it, without using the prototype:
+
+
+Accessor properties are an exception, as assignment is handled by a setter function. So writing to such a property is actually the same as calling a function.
+
+For that reason `admin.fullName` works correctly in the code below:
+
+```js run
+let user = {
+  name: "John",
+  surname: "Smith",
+
+  set fullName(value) {
+    [this.name, this.surname] = value.split(" ");
+  },
+
+  get fullName() {
+    return `${this.name} ${this.surname}`;
+  }
+};
+
+let admin = {
+  __proto__: user,
+  isAdmin: true
+};
+
+alert(admin.fullName); // John Smith (*)
+
+// setter triggers!
+admin.fullName = "Alice Cooper"; // (**)
+
+alert(admin.fullName); // Alice Cooper, state of admin modified
+alert(user.fullName); // John Smith, state of user protected
+```
+
+Here in the line `(*)` the property `admin.fullName` has a getter in the prototype `user`, so it is called. And in the line `(**)` the property has a setter in the prototype, so it is called.
+
+
+
+
+- In JavaScript, all objects have a hidden `[[Prototype]]` property that's either another object or `null`.
+- We can use `obj.__proto__` to access it (a historical getter/setter, there are other ways, to be covered soon).
+- The object referenced by `[[Prototype]]` is called a "prototype".
+- If we want to read a property of `obj` or call a method, and it doesn't exist, then JavaScript tries to find it in the prototype.
+- Write/delete operations act directly on the object, they don't use the prototype (assuming it's a data property, not a setter).
+- If we call `obj.method()`, and the `method` is taken from the prototype, `this` still references `obj`. So methods always work with the current object even if they are inherited.
+- The `for..in` loop iterates over both its own and its inherited pr
